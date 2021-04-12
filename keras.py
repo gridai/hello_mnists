@@ -2,6 +2,7 @@ from argparse import ArgumentParser
 from pathlib import Path
 
 from tensorflow import keras
+import tensorflow
 
 # Define this script's flags
 parser = ArgumentParser()
@@ -9,11 +10,20 @@ parser.add_argument('--lr', type=float, default=1e-3)
 parser.add_argument('--batch_size', type=int, default=32)
 parser.add_argument('--max_epochs', type=int, default=5)
 parser.add_argument('--data_dir', type=str, default="./data/")
+parser.add_argument('--gpus', type=int, default=None)
 args = parser.parse_args()
 
 # Make sure data_dir is absolute + create it if it doesn't exist
 data_dir = Path(args.data_dir).absolute()
 data_dir.mkdir(parents=True, exist_ok=True)
+
+# GPU Configuration
+if args.gpus:
+    gpu_devices = tensorflow.config.experimental.list_physical_devices('GPU')
+    for gpu_idx in range(args.gpus):
+        tensorflow.config.experimental.set_memory_growth(gpu_devices[gpu_idx], True)
+    gpus = tensorflow.test.gpu_device_name()
+    print("GPUs: " + gpus)
 
 # Download and/or load data from disk
 (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data(data_dir / 'mnist.npz')
