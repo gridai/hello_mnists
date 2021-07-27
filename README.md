@@ -19,12 +19,6 @@ python pytorch.py
 
 # Grid.ai Run
 grid run pytorch.py | tee /tmp/grid.run.log
-
-# Grid.ai Run Monitor
-RUN_NAME=$(grep /tmp/grid_name grid.run.log | cut -d':' -f 2 | sed -e 's/^[[:space:]]*//')
-watch grid status --details $RUN_NAME
-grid history | grep $RUN_NAME
-grid logs ${RUN_NAME}-exp0 | tee /tmp/grid.exp0.log
 ```
 
 # PyTorch Lightning
@@ -35,12 +29,6 @@ python pl_mnist.py
 
 # Grid.ai Run
 grid run pl_mnist.py | tee /tmp/grid.run.log
-
-# Grid.ai Run Monitor
-RUN_NAME=$(grep /tmp/grid_name grid.run.log | cut -d':' -f 2 | sed -e 's/^[[:space:]]*//')
-watch grid status --details $RUN_NAME
-grid history | grep $RUN_NAME
-grid logs ${RUN_NAME}-exp0 | tee /tmp/grid.exp0.log
 ```
 
 # Keras
@@ -51,9 +39,11 @@ python keras.py
 
 # Grid.ai Run
 grid run keras.py | tee /tmp/grid.run.log
+```
 
 # Grid.ai Run Monitor
-RUN_NAME=$(grep /tmp/grid_name grid.run.log | cut -d':' -f 2 | sed -e 's/^[[:space:]]*//')
+```bash
+RUN_NAME=$(grep grid_name /tmp/grid.run.log | cut -d':' -f 2 | sed -e 's/^[[:space:]]*//')
 watch grid status --details $RUN_NAME
 grid history | grep $RUN_NAME
 grid logs ${RUN_NAME}-exp0 | tee /tmp/grid.exp0.log
