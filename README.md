@@ -9,6 +9,7 @@ conda create --yes --name mnist python=3.8
 conda activate mnist
 pip install -r requirements.txt
 pip install lightning-grid
+grid login
 ```
 
 # PyTorch
@@ -41,7 +42,18 @@ python keras.py
 grid run keras.py | tee /tmp/grid.run.log
 ```
 
+# CIFAR-10 Bonus
+
+```bash
+# Local Run
+python pl_cifar10.py
+
+# Grid.ai Run
+grid run pl_cifar10.py | tee /tmp/grid.run.log
+```
+
 # Grid.ai Run Monitor
+
 ```bash
 RUN_NAME=$(grep grid_name /tmp/grid.run.log | cut -d':' -f 2 | sed -e 's/^[[:space:]]*//')
 watch grid status --details $RUN_NAME
