@@ -1,4 +1,6 @@
-torch
-pytorch-lightning
-torchvision
+# tensorflow version matches Grid.ai grid run --framework tensorflow 2.2.0
 tensorflow
+# lightning version matches Grid.ai grid run --framework lightning 1.2.1
+pytorch-lightning
+torch
+torchvision
