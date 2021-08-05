@@ -1,3 +1,10 @@
-torch==1.7.1
-pytorch-lightning==1.1.2
-torchvision==0.8.2
+# tensorflow version matches Grid.ai grid run --framework tensorflow 2.2.0
+tensorflow
+# lightning version matches Grid.ai grid run --framework lightning 1.2.1
+#    raise ValueError("The `preds` should be probabilities, but values were detected outside of [0,1] range.")
+# ValueError: The `preds` should be probabilities, but values were detected outside of [0,1] range.
+# https://github.com/PyTorchLightning/lightning-bolts/issues/551
+pytorch-lightning<1.2
+torch
+torchvision
+configargparser

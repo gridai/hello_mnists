@@ -1,14 +1,15 @@
-from argparse import ArgumentParser
+from configargparse import ArgumentParser
 from pathlib import Path
 
 from tensorflow import keras
 
 # Define this script's flags
 parser = ArgumentParser()
-parser.add_argument('--lr', type=float, default=1e-3)
-parser.add_argument('--batch_size', type=int, default=32)
-parser.add_argument('--max_epochs', type=int, default=5)
+parser.add_argument('--lr', type=float, default=1e-3, env_var="MNIST_LR")
+parser.add_argument('--batch_size', type=int, default=32, env_var="MNIST_BATCH_SIZE")
+parser.add_argument('--max_epochs', type=int, default=5, env_var="MNIST_MAX_EPOCHS")
 parser.add_argument('--data_dir', type=str, default="./data/")
+parser.add_argument('--num_workers', type=int, default=8)
 args = parser.parse_args()
 
 # Make sure data_dir is absolute + create it if it doesn't exist

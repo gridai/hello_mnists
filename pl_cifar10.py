@@ -37,18 +37,20 @@ class LitModel(pl.LightningModule):
         return loss
 
 if __name__ == '__main__':
-    from argparse import ArgumentParser
+    from configargparse import ArgumentParser
 
     parser = ArgumentParser()
-    parser.add_argument('--gpus', type=int, default=None)
-    parser.add_argument('--lr', type=float, default=1e-3)
-    parser.add_argument('--batch_size', type=int, default=32)
-    parser.add_argument('--max_epochs', type=int, default=10)
+    parser.add_argument('--gpus', type=int, default=0)
+    parser.add_argument('--lr', type=float, default=1e-3, env_var="CIFAR_LR")
+    parser.add_argument('--batch_size', type=int, default=32, env_var="CIFAR_BATCH_SIZE")
+    parser.add_argument('--max_epochs', type=int, default=10, env_var="CIFAR_MAX_EPOCHS")
     parser.add_argument('--data_dir', type=str, default=os.getcwd())
+    parser.add_argument('--num_workers', type=int, default=8)
+ 
     args = parser.parse_args()
 
     dataset = CIFAR10(args.data_dir, download=True, transform=transforms.ToTensor())
-    train_loader = DataLoader(dataset, batch_size=args.batch_size)
+    train_loader = DataLoader(dataset, batch_size=args.batch_size, num_workers=args.num_workers)
 
     # init model
     model = LitModel(lr=args.lr)
