@@ -4,7 +4,7 @@ https://github.com/pytorch/examples/blob/master/mnist/main.py
 
 """
 from __future__ import print_function
-import argparse
+from configargparse import ArgumentParser
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -87,15 +87,15 @@ def test(model, device, test_loader, epoch):
 
 def main():
     # Training settings
-    parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
+    parser = ArgumentParser(description='PyTorch MNIST Example')
     parser.add_argument('--batch_size', type=int, default=64, metavar='N',
-                        help='input batch size for training (default: 64)')
+                        help='input batch size for training (default: 64)', env_var="MNIST_BATCH_SIZE")
     parser.add_argument('--test_batch_size', type=int, default=1000, metavar='N',
                         help='input batch size for testing (default: 1000)')
     parser.add_argument('--max_epochs', type=int, default=14, metavar='N',
-                        help='number of epochs to train (default: 14)')
+                        help='number of epochs to train (default: 14)', env_var="MNIST_MAX_EPOCHS")
     parser.add_argument('--lr', type=float, default=1.0, metavar='LR',
-                        help='learning rate (default: 1.0)')
+                        help='learning rate (default: 1.0)', env_var="MNIST_LR")
     parser.add_argument('--gamma', type=float, default=0.7, metavar='M',
                         help='Learning rate step gamma (default: 0.7)')
     parser.add_argument('--cuda', action='store_true', default=False,
